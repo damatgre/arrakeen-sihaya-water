@@ -2,6 +2,7 @@
 
 //setting city 
 var city = $("#searchCity").val();
+var currentCity = "";
 var temp = $("#tempEl");
 var wind = $("#windEl");
 var humidity = $("#humidEl");
@@ -15,6 +16,8 @@ $("#searchBtn").on("click", function () {
     city = $("#searchCity").val();
 
     queryUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+
+
 
     //clear value from the input
     $("#searchCity").val("");
@@ -37,19 +40,44 @@ function addList() {
 //function to display current weather
 function getCurrentWeather() {
     fetch(queryUrl)
-    //arrow is another way to write function
+        //arrow is another way to write function
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            temp.text(`Temp: ${Math.floor(data.main.temp)}°F`);
-            wind.text(`Wind Speed: ${Math.floor(data.wind.speed)} MPH`);
-            humidity.text(`Humidity: ${Math.floor(data.main.humidity)}`);
-        
+            //create variables for latitude and longitude of city for UV Index
+            lat = data.coord.lat;
+            lon = data.coord.lon;
+            console.log(lon, lat);
+
+            getForecast(lat, lon);
         })
 
-    $("h3").append(city);
-    $("")
-    
-    };
+    //$("h3").append(city);
 
+};
+
+function getForecast(lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log(data.current.dt);
+
+            //convert date from api
+            var currentDate = data.current.dt;
+            $("#current-city").text().split(" ")[0, 1, 2, 3, 4]
+            var date = new Date(currentDate * 1000);
+            console.log(date);
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            //produce items 
+            $("h3").append(`${city} (${month}/${day}/${year})`);
+            temp.text(`Temp: ${Math.floor(data.current.temp)}°F`);
+            wind.text(`Wind Speed: ${(data.current.wind_speed)} MPH`);
+            humidity.text(`Humidity: ${Math.floor(data.current.humidity)}%`);
+            uvIn.text(`UV Index: ${Math.floor(data.current.uvi)}`)
+        })
+};
 
