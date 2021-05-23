@@ -14,7 +14,7 @@ $("#searchBtn").on("click", function () {
     //get the value from the input
     city = $("#searchCity").val();
 
-    queryUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+    queryUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
     //clear value from the input
     $("#searchCity").val("");
@@ -34,11 +34,22 @@ function addList() {
     }
 };
 
+//function to display current weather
 function getCurrentWeather() {
     fetch(queryUrl)
+    //arrow is another way to write function
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data);
+            temp.text(`Temp: ${Math.floor(data.main.temp)}°F`);
+            wind.text(`Wind Speed: ${Math.floor(data.wind.speed)} MPH`);
+            humidity.text(`Humidity: ${Math.floor(data.main.humidity)}`);
+        
+        })
 
+    $("h3").append(city);
+    $("")
+    
     };
 
 
