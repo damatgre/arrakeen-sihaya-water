@@ -60,8 +60,6 @@ function getForecast(lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            console.log(data.current.dt);
 
             //convert date from api
             var currentDate = data.current.dt;
@@ -81,3 +79,14 @@ function getForecast(lat, lon) {
         })
 };
 
+function getFiveDay (lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log(data.current.dt);
+
+
+        })
+
+    };
