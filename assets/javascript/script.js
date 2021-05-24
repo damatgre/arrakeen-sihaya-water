@@ -52,7 +52,6 @@ function getCurrentWeather() {
             getForecast(lat, lon);
         })
 
-    //$("h3").append(city);
 
 };
 
@@ -61,7 +60,7 @@ function getForecast(lat, lon) {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            console.log(data.current.dt);
+            console.log(data.current.weather[0].icon);
 
             //convert date from api
             var currentDate = data.current.dt;
@@ -72,8 +71,14 @@ function getForecast(lat, lon) {
             const month = date.getMonth() + 1;
             const year = date.getFullYear();
 
-            //produce items 
+            var weatherIcon = data.current.weather[0].icon;
+            var iconUrl = `http://openweathermap.org/img/w/${weatherIcon}.png`;
+
+
+
+            //create elements for current weather
             $("h3").append(`${city} (${month}/${day}/${year})`);
+            $("#icon").attr("src", iconUrl);
             temp.text(`Temp: ${Math.floor(data.current.temp)}°F`);
             wind.text(`Wind Speed: ${(data.current.wind_speed)} MPH`);
             humidity.text(`Humidity: ${Math.floor(data.current.humidity)}%`);
