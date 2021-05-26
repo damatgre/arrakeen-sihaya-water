@@ -25,7 +25,7 @@
     </div>
 
     <!--can I substitute for aside-->
-    <div class="container-fluid">
+    <main class="container-fluid">
         <div class="row">
 
             <!--city search column-->
@@ -62,16 +62,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!--5 day forecast start-->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 bg-light mt-3 pt-3 pb-3" id="forecast">
-                <h2>5 Day Forecast</h2>
-                <!--look to create similar card from weather container dynamically using jQuery-->
-            </div>
-        </div>
+    <div class="row border" id="forecast-div">
+        <h2>5 Day Forecast:</h2>
     </div>
 
 
@@ -81,6 +76,7 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="assets/javascript/script.js"></script>
 </body>
 
